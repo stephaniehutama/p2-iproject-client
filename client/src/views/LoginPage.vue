@@ -1,6 +1,21 @@
 <script>
-export default {
+import { mapActions } from 'pinia';
+import { useCounterStore } from '../stores/counter';
 
+export default {
+    data() {
+        return {
+            email: '',
+            password: ''
+        }
+    },
+    methods: {
+        ...mapActions(useCounterStore, ['logIn']),
+        loginButton() {
+            this.logIn(this.email, this.password),
+                this.$router.push('/')
+        }
+    }
 }
 </script>
 
@@ -13,19 +28,19 @@ export default {
                 <!-- Login Form -->
                 <div class="px-5">
                     <div class="py-5">
-                        <form>
+                        <form @submit.prevent="loginButton">
                             <h1>Login</h1>
                             <div class="mb-3">
                                 <label for="login-email" class="form-label">Email address</label>
-                                <input type="email" class="form-control" id="login-email" aria-describedby="emailHelp"
-                                    placeholder="Email" />
+                                <input v-model="email" type="email" class="form-control" id="login-email"
+                                    aria-describedby="emailHelp" placeholder="Email" />
                                 <div id="login-email" class="form-text">
                                     We'll never share your email with anyone else.
                                 </div>
                             </div>
                             <div class="mb-3">
                                 <label for="login-password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="login-password"
+                                <input v-model="password" type="password" class="form-control" id="login-password"
                                     placeholder="Password" />
                             </div>
                             <div class="d-flex justify-content-center pt-3">
