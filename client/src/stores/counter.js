@@ -7,6 +7,7 @@ export const useCounterStore = defineStore("counter", {
   state: () => {
     return {
       isLogin: false,
+      movies: [],
     };
   },
   actions: {
@@ -38,6 +39,22 @@ export const useCounterStore = defineStore("counter", {
             password,
           },
         });
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async fetchMovies() {
+      try {
+        const response = await axios({
+          url: `${baseUrl}/movies`,
+          method: "get",
+          // params: {
+          //   search: search ? search : "",
+          // },
+        });
+        console.log(response.data.data.items);
+        this.movies = response.data.data.items;
+        console.log(this.movies);
       } catch (err) {
         console.log(err);
       }
