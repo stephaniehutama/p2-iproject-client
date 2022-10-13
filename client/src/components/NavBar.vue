@@ -5,6 +5,11 @@ import { useCounterStore } from '../stores/counter';
 export default {
     computed: {
         ...mapState(useCounterStore, ['isLogin'])
+    },
+    methods: {
+        logoutButton() {
+            localStorage.clear()
+        }
     }
 }
 </script>
@@ -26,8 +31,10 @@ export default {
                 </div>
             </div>
             <div class="col-2 d-flex justify-content-end">
-                <a v-if="!isLogin" class="nav-link link-light" id="link" href="#">Login</a>
-                <a v-if="isLogin" class="nav-link link-light" id="link" href="#">Logout</a>
+                <router-link to="/login" v-if="!isLogin" class="nav-link link-light" id="link" href="#">Login
+                </router-link>
+                <a v-if="isLogin" @click.prevent="logoutButton" class="nav-link link-light" id="link"
+                    href="#">Logout</a>
             </div>
         </nav>
     </div>

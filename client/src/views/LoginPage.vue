@@ -1,5 +1,5 @@
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState, mapWritableState } from 'pinia';
 import { useCounterStore } from '../stores/counter';
 
 export default {
@@ -10,12 +10,26 @@ export default {
         }
     },
     methods: {
-        ...mapActions(useCounterStore, ['logIn']),
+        ...mapActions(useCounterStore, ['logIn', 'handleCredentialResponse']),
         loginButton() {
             this.logIn(this.email, this.password),
                 this.$router.push('/')
+        },
+    },
+    mounted() {
+        let cb = this.handleCredentialResponse
+        window.onload = function () {
+            google.accounts.id.initialize({
+                client_id: "497505358780-g4uktm6s7ehlembe84khrmpdv9mi6au6.apps.googleusercontent.com",
+                callback: cb
+            });
+            google.accounts.id.renderButton(
+                document.getElementById("buttonDiv"),
+                { theme: "outline", size: "large" }  // customization attributes
+            );
+            google.accounts.id.prompt(); // also display the One Tap dialog
         }
-    }
+    },
 }
 </script>
 
@@ -49,7 +63,9 @@ export default {
                                 </button>
                             </div>
                             <hr />
-                            <a href="#" class="d-flex justify-content-end">Register</a>
+                            <div id="buttonDiv"></div>
+                            <router-link to="/register" href="#" class="d-flex justify-content-end">Register
+                            </router-link>
                         </form>
                     </div>
                 </div>
