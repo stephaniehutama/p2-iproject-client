@@ -31,8 +31,8 @@ export const useCounterStore = defineStore("counter", {
             password,
           },
         });
-        localStorage.setItem("access_token", response.data.access_token);
         this.isLogin = true;
+        localStorage.setItem("access_token", response.data.access_token);
       } catch (err) {
         console.log(err);
       }

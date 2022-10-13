@@ -8,7 +8,7 @@ export default {
     ...mapActions(useCounterStore, ['loginCheck'])
   },
   created() {
-    this.loginCheck()
+    // this.loginCheck()
   }
 }
 </script>

@@ -30,11 +30,13 @@ export default {
                     </router-link>
                 </div>
             </div>
-            <div class="col-2 d-flex justify-content-end">
-                <router-link to="/login" v-if="!isLogin" class="nav-link link-light" id="link" href="#">Login
+            <div v-if="!isLogin " class="col-2 d-flex justify-content-end">
+                <router-link to="/login" class="nav-link link-light" id="link" href="#">Login
                 </router-link>
-                <a v-if="isLogin" @click.prevent="logoutButton" class="nav-link link-light" id="link"
-                    href="#">Logout</a>
+            </div>
+            <div v-if="isLogin" class="col-2 d-flex justify-content-end">
+
+                <a @click.prevent="logoutButton" class="nav-link link-light" id="link" href="#">Logout</a>
             </div>
         </nav>
     </div>
